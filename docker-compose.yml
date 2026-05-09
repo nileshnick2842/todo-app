@@ -1,0 +1,24 @@
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - DB_HOST=db
+      - DB_NAME=tododb
+      - DB_USER=admin
+      - DB_PASSWORD=secret123
+    depends_on:
+      - db
+
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_DB: tododb
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secret123
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:
